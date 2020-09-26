@@ -1,29 +1,30 @@
 import { Injectable } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
-
-import { createWriteStream } from 'fs';
-import ytdl from 'ytdl-core';
-
-// const fs = require('fs');
-// const ytdl = require('ytdl-core');
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ConvertService {
-  // constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {}
 
   toMp3() {
-    ytdl('https://www.youtube.com/watch?v=tDTQQWSmo8s').pipe(
-      createWriteStream('Video.flv')
-    );
+    // let http: HttpClient;
 
-    // let id: string = this.getVideoId(url);
+    window.location.href =
+      'http://localhost:3333/single?url=https://www.youtube.com/watch?v=GAt0Wd-yYu4';
 
-    // return this.http.get(`https://www.yt-download.org/api/button/mp3/${id}`);
+    // let res = this.http
+    //   .get(
+    //     `http://localhost:3333/single?url=https://www.youtube.com/watch?v=GAt0Wd-yYu4`,
+    //     { responseType: 'arraybuffer' }
+    //   )
+    //   .subscribe((data) => {
+    //     console.log(data);
+    //   });
+    // console.log(res);
   }
 
-  getVideoId(url: string) {
+  getVideoId(url) {
     return '9x1MZEDQbtA';
   }
 }

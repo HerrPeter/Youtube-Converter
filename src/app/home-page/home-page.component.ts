@@ -7,10 +7,11 @@ import { ConvertService } from '../convert.service';
   styleUrls: ['./home-page.component.less'],
 })
 export class HomePageComponent implements OnInit {
-  constructor(private _http: ConvertService) {}
+  constructor(private _converter: ConvertService) {}
 
   ngOnInit(): void {
-    this._http.toMp3();
+    this._converter.toMp3();
+    console.log('Done');
     // .subscribe((data) => {
     //   console.log(data);
     // });
