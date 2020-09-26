@@ -1,19 +1,39 @@
-<header>
-  <div class="container">
-    <a href="#" class="logo">Youtube Converter</a>
-    <nav>
-      <ul>
-        <li><a href="#" routerLink="/">Home</a></li>
-        <li><a href="#" routerLink="/settings">Settings</a></li>
-      </ul>
-    </nav>
-  </div>
-</header>
+<!-- Home Page -->
+<!-- <div class='grid-container'> -->
 
-<div>
-  <app-home-page></app-home-page>
-</div>
+<mat-grid-tile-header> </mat-grid-tile-header>
+<mat-grid-list cols="1" rowHeight="100%">
+  <mat-grid-tile>
+    <div class="flex-cont">
+      <div class="flex-header">
+        <header>
+          <div class="container">
+            <a href="#" class="logo">Youtube Converter</a>
+            <nav>
+              <ul>
+                <li><a href="#" routerLink="/">Home</a></li>
+                <li><a href="#" routerLink="/settings">Settings</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+      </div>
+      <div class="flex-main">
+        <app-home-page></app-home-page>
+      </div>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
 
+<!-- <mat-grid-list cols="2" , rowHeight="2:1">
+  <mat-grid-tile>One</mat-grid-tile>
+  <mat-grid-tile>
+    <app-home-page></app-home-page>
+  </mat-grid-tile>
+</mat-grid-list> -->
+<!-- </div> -->
+
+<!-- TBA: Web navigation -->
 <div class="container">
   <router-outlet></router-outlet>
 </div>
