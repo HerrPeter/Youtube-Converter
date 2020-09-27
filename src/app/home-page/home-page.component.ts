@@ -1,5 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatInputModule } from '@angular/material/input';
 import { ConvertService } from '../convert.service';
+
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-home-page',
@@ -7,21 +15,33 @@ import { ConvertService } from '../convert.service';
   styleUrls: ['./home-page.component.less'],
 })
 export class HomePageComponent implements OnInit {
-  constructor(private _converter: ConvertService) {}
+  homeForm: FormGroup;
+
+  audioOnly: boolean;
+  url: string = null;
+
+  constructor(private fb: FormBuilder, private converter: ConvertService) {}
 
   ngOnInit(): void {
-    // this._converter.toMp3();
-    console.log('Done');
-    // .subscribe((data) => {
-    //   console.log(data);
-    // });
+    this.homeForm = this.fb.group({
+      url: '',
+    });
+    this.audioOnly = false;
   }
 
   downloadSingle(): void {
-    this._converter.downloadSingle();
+    this.converter.downloadSingle(this.homeForm.value.url, this.audioOnly);
   }
 
   downloadPlaylist(): void {
-    this._converter.downloadPlaylist();
+    this.converter.downloadPlaylist(this.homeForm.value.url, this.audioOnly);
+  }
+
+  handleUrlChange(url: string): void {
+    this.url = url;
+  }
+
+  handleAudioOnlyToggle(): void {
+    this.audioOnly = !this.audioOnly;
   }
 }

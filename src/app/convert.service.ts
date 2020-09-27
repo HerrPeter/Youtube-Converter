@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
+
+import { BE_SERVER } from '../constants';
+import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',
@@ -24,12 +27,22 @@ export class ConvertService {
     // console.log(res);
   }
 
-  downloadSingle() {
+  downloadSingle(url: string, audioOnly: boolean) {
     console.log('Downloading single');
+    console.log(`- Url: ${url}`);
+    console.log(`- Audio Only: ${audioOnly}`);
+
+    let userUrl: String = new String(url);
+    let downUrl: String = new String(
+      `${BE_SERVER.DOMAIN}/${BE_SERVER.REQUESTS.SINGLE_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`
+    );
+    window.location.href = <string>downUrl;
   }
 
-  downloadPlaylist() {
+  downloadPlaylist(url: string, audioOnly: boolean) {
     console.log('Downloading playlist');
+    console.log(`- Url: ${url}`);
+    console.log(`- Audio Only: ${audioOnly}`);
   }
 
   getVideoId(url) {
