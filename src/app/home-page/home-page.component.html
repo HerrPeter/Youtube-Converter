@@ -14,4 +14,12 @@
       <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
     </mat-form-field>
   </form>
+  <div class="container">
+    <button mat-raised-button color="primary" (click)="this.downloadSingle()">
+      Download Single
+    </button>
+    <button mat-raised-button color="accent" (click)="this.downloadPlaylist()">
+      Downlaod Playlist
+    </button>
+  </div>
 </div>

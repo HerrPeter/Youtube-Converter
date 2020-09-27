@@ -16,4 +16,12 @@ export class HomePageComponent implements OnInit {
     //   console.log(data);
     // });
   }
+
+  downloadSingle(): void {
+    this._converter.downloadSingle();
+  }
+
+  downloadPlaylist(): void {
+    this._converter.downloadPlaylist();
+  }
 }

@@ -24,6 +24,14 @@ export class ConvertService {
     // console.log(res);
   }
 
+  downloadSingle() {
+    console.log('Downloading single');
+  }
+
+  downloadPlaylist() {
+    console.log('Downloading playlist');
+  }
+
   getVideoId(url) {
     return '9x1MZEDQbtA';
   }
