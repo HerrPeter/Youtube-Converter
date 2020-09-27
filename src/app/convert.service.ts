@@ -28,14 +28,13 @@ export class ConvertService {
   }
 
   downloadSingle(url: string, audioOnly: boolean) {
-    console.log('Downloading single');
-    console.log(`- Url: ${url}`);
-    console.log(`- Audio Only: ${audioOnly}`);
-
     let userUrl: String = new String(url);
     let downUrl: String = new String(
       `${BE_SERVER.DOMAIN}/${BE_SERVER.REQUESTS.SINGLE_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`
     );
+
+    // Navigate to the download link. (NEED TO HANDLE INVALID URL ENTRIES).
+    // --> Consider doing a get request, returns the same valid url, then redirects to the url
     window.location.href = <string>downUrl;
   }
 
