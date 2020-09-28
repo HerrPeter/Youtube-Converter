@@ -19,7 +19,9 @@
     <button mat-raised-button color="primary" (click)="this.downloadSingle()">
       Download Single
     </button>
-    <mat-slide-toggle (change)="this.handleAudioOnlyToggle()"
+    <mat-slide-toggle
+      style="align-self: center"
+      (change)="this.handleAudioOnlyToggle()"
       >Audio Only</mat-slide-toggle
     >
     <button mat-raised-button color="accent" (click)="this.downloadPlaylist()">
