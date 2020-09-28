@@ -4,6 +4,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { BE_SERVER } from '../constants';
 import { query } from '@angular/animations';
 
+interface IValidate_BE {
+  isValid: boolean;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -27,24 +31,43 @@ export class ConvertService {
     // console.log(res);
   }
 
+  async validateUrl(url: string, isSingle: boolean = true) {
+    return new Promise<boolean>((isValid) => {
+      this.http
+        .get(
+          `${BE_SERVER.DOMAIN}/${BE_SERVER.REQUESTS.VALIDATE_URL}?url=${url}&isSingle=${isSingle}`
+        )
+        .subscribe((data: IValidate_BE) => {
+          isValid(data.isValid);
+        });
+    });
+  }
+
   downloadSingle(url: string, audioOnly: boolean) {
     let userUrl: String = new String(url);
     let downUrl: String = new String(
       `${BE_SERVER.DOMAIN}/${BE_SERVER.REQUESTS.SINGLE_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`
     );
 
-    // Navigate to the download link. (NEED TO HANDLE INVALID URL ENTRIES).
-    // --> Consider doing a get request, returns the same valid url, then redirects to the url
+    // Navigate to the download link.
+    // --> Consider changing the href of the Download Single btn and invoking the click event.
     window.location.href = <string>downUrl;
   }
 
   downloadPlaylist(url: string, audioOnly: boolean) {
-    console.log('Downloading playlist');
-    console.log(`- Url: ${url}`);
-    console.log(`- Audio Only: ${audioOnly}`);
+    // console.log('Downloading playlist');
+    // console.log(`- Url: ${url}`);
+    // console.log(`- Audio Only: ${audioOnly}`);
+
+    let userUrl: String = new String(url);
+    let downUrl: String = new String(
+      `${BE_SERVER.DOMAIN}/${BE_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`
+    );
+
+    window.location.href = <string>downUrl;
   }
 
-  getVideoId(url) {
-    return '9x1MZEDQbtA';
-  }
+  // getVideoId(url) {
+  //   return '9x1MZEDQbtA';
+  // }
 }

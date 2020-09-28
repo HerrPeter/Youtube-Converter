@@ -3,5 +3,6 @@ export const BE_SERVER = {
   REQUESTS: {
     SINGLE_DOWNLOAD: 'single',
     PLAYLIST_DOWNLOAD: 'playlist',
+    VALIDATE_URL: 'validate',
   },
 };

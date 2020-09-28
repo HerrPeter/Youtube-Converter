@@ -8,6 +8,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-home-page',
@@ -29,12 +30,28 @@ export class HomePageComponent implements OnInit {
     this.audioOnly = false;
   }
 
-  downloadSingle(): void {
-    this.converter.downloadSingle(this.homeForm.value.url, this.audioOnly);
+  async downloadSingle() {
+    let isValid = await this.converter.validateUrl(this.homeForm.value.url);
+    // console.log(`Is Valid: ${isValid}`);
+
+    if (isValid) {
+      this.converter.downloadSingle(this.homeForm.value.url, this.audioOnly);
+    } else {
+      console.log('- Error: Invalid Url');
+    }
   }
 
-  downloadPlaylist(): void {
-    this.converter.downloadPlaylist(this.homeForm.value.url, this.audioOnly);
+  async downloadPlaylist() {
+    let isValid = await this.converter.validateUrl(
+      this.homeForm.value.url,
+      false
+    );
+
+    if (isValid) {
+      this.converter.downloadPlaylist(this.homeForm.value.url, this.audioOnly);
+    } else {
+      console.log('- Error: Invalid Url');
+    }
   }
 
   handleUrlChange(url: string): void {
