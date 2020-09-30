@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { BE_SERVER } from '../constants';
-import { query } from '@angular/animations';
 
 interface IValidate_BE {
   isValid: boolean;
@@ -13,23 +12,6 @@ interface IValidate_BE {
 })
 export class ConvertService {
   constructor(private http: HttpClient) {}
-
-  toMp3() {
-    // let http: HttpClient;
-
-    window.location.href =
-      'http://localhost:3333/single?url=https://www.youtube.com/watch?v=GAt0Wd-yYu4';
-
-    // let res = this.http
-    //   .get(
-    //     `http://localhost:3333/single?url=https://www.youtube.com/watch?v=GAt0Wd-yYu4`,
-    //     { responseType: 'arraybuffer' }
-    //   )
-    //   .subscribe((data) => {
-    //     console.log(data);
-    //   });
-    // console.log(res);
-  }
 
   async validateUrl(url: string, isSingle: boolean = true) {
     return new Promise<boolean>((isValid) => {
@@ -55,19 +37,15 @@ export class ConvertService {
   }
 
   downloadPlaylist(url: string, audioOnly: boolean) {
-    // console.log('Downloading playlist');
-    // console.log(`- Url: ${url}`);
-    // console.log(`- Audio Only: ${audioOnly}`);
+    let userUrl: string = url;
+    let downUrl: string = `${BE_SERVER.DOMAIN}/${BE_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`;
 
-    let userUrl: String = new String(url);
-    let downUrl: String = new String(
-      `${BE_SERVER.DOMAIN}/${BE_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`
-    );
+    // let res = this.http.get(downUrl, {responseType: 'arraybuffer'}).
+    //.subscribe((data) => {
+    //   console.log(data);
+    // });
+    // console.log(res);
 
-    window.location.href = <string>downUrl;
+    window.location.href = downUrl;
   }
-
-  // getVideoId(url) {
-  //   return '9x1MZEDQbtA';
-  // }
 }
