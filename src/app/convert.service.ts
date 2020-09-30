@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
-import { BE_SERVER } from '../constants';
+import { _SERVER } from '../constants';
 
 interface IValidate_BE {
   isValid: boolean;
@@ -17,7 +17,7 @@ export class ConvertService {
     return new Promise<boolean>((isValid) => {
       this.http
         .get(
-          `${BE_SERVER.DOMAIN}/${BE_SERVER.REQUESTS.VALIDATE_URL}?url=${url}&isSingle=${isSingle}`
+          `${_SERVER.DOMAIN}/${_SERVER.REQUESTS.VALIDATE_URL}?url=${url}&isSingle=${isSingle}`
         )
         .subscribe((data: IValidate_BE) => {
           isValid(data.isValid);
@@ -28,7 +28,7 @@ export class ConvertService {
   downloadSingle(url: string, audioOnly: boolean) {
     let userUrl: String = new String(url);
     let downUrl: String = new String(
-      `${BE_SERVER.DOMAIN}/${BE_SERVER.REQUESTS.SINGLE_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`
+      `${_SERVER.DOMAIN}/${_SERVER.REQUESTS.SINGLE_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`
     );
 
     // Navigate to the download link.
@@ -38,7 +38,7 @@ export class ConvertService {
 
   downloadPlaylist(url: string, audioOnly: boolean) {
     let userUrl: string = url;
-    let downUrl: string = `${BE_SERVER.DOMAIN}/${BE_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`;
+    let downUrl: string = `${_SERVER.DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`;
 
     // let res = this.http.get(downUrl, {responseType: 'arraybuffer'}).
     //.subscribe((data) => {
