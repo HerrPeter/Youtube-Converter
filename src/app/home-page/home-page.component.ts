@@ -8,7 +8,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { IfStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-home-page',
@@ -17,7 +16,6 @@ import { IfStmt } from '@angular/compiler';
 })
 export class HomePageComponent implements OnInit {
   homeForm: FormGroup;
-
   audioOnly: boolean;
   url: string = null;
 
@@ -32,7 +30,6 @@ export class HomePageComponent implements OnInit {
 
   async downloadSingle() {
     let isValid = await this.converter.validateUrl(this.homeForm.value.url);
-    // console.log(`Is Valid: ${isValid}`);
 
     if (isValid) {
       this.converter.downloadSingle(this.homeForm.value.url, this.audioOnly);
