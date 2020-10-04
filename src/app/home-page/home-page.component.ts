@@ -32,7 +32,12 @@ export class HomePageComponent implements OnInit {
     let isValid = await this.converter.validateUrl(this.homeForm.value.url);
 
     if (isValid) {
-      this.converter.downloadSingle(this.homeForm.value.url, this.audioOnly);
+      let downUrl = this.converter.downloadSingle(
+        this.homeForm.value.url,
+        this.audioOnly
+      );
+      // this.homeForm.setValue({url: downUrl})
+      // this.url = downUrl;
     } else {
       console.log('- Error: Invalid Url');
     }

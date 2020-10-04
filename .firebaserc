@@ -1,14 +1,5 @@
 {
-  "targets": {
-    "youtube-downloader-290204": {
-      "hosting": {
-        "Youtube-Converter": [
-          "youtube-downloader-290204"
-        ]
-      }
-    }
-  },
   "projects": {
-    "default": "youtube-downloader-290204"
+    "default": "downloader-97884"
   }
 }
