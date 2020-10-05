@@ -14,7 +14,7 @@ export class ConvertService {
   constructor(private http: HttpClient) {}
 
   async validateUrl(url: string, isSingle: boolean = true) {
-    let reqUrl: string = `${_SERVER.DOMAIN}/${_SERVER.REQUESTS.VALIDATE_URL}?url=${url}&isSingle=${isSingle}`;
+    let reqUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.VALIDATE_URL}?url=${url}&isSingle=${isSingle}`;
 
     const headers = new HttpHeaders();
     headers.set('content-type', 'application/octet-stream');
@@ -30,7 +30,7 @@ export class ConvertService {
 
   downloadSingle(url: string, audioOnly: boolean) {
     let userUrl: string = url;
-    let downUrl: string = `${_SERVER.DOMAIN}/${_SERVER.REQUESTS.SINGLE_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`;
+    let downUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.SINGLE_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`;
 
     // let res = this.http
     //   .get(downUrl, { responseType: 'arraybuffer' })
@@ -48,7 +48,7 @@ export class ConvertService {
 
   downloadPlaylist(url: string, audioOnly: boolean) {
     let userUrl: string = url;
-    let downUrl: string = `${_SERVER.DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`;
+    let downUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?url=${userUrl}&audioOnly=${audioOnly}`;
 
     window.location.href = downUrl;
   }
