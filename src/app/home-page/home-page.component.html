@@ -1,20 +1,22 @@
 <!-- <p>home-page works!</p> -->
 
 <div class="container-outer">
-  <form class="example-form" [formGroup]="homeForm">
-    <mat-form-field class="example-full-width">
-      <mat-label style="color: black">YouTube Url</mat-label>
-      <input
-        type="url"
-        formControlName="url"
-        matInput
-        #message
-        maxlength="256"
-        placeholder="Ex: www.youtube.com/watch?v=12345"
-      />
-      <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
-    </mat-form-field>
-  </form>
+  <div id="form-url">
+    <form class="example-form" [formGroup]="homeForm">
+      <mat-form-field class="form">
+        <mat-label style="color: black">YouTube Url</mat-label>
+        <input
+          type="url"
+          formControlName="url"
+          matInput
+          #message
+          maxlength="256"
+          placeholder="Ex: www.youtube.com/watch?v=12345"
+        />
+        <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
+      </mat-form-field>
+    </form>
+  </div>
   <div class="container">
     <button mat-raised-button color="primary" (click)="this.downloadSingle()">
       Download Single
