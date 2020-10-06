@@ -1,11 +1,13 @@
 <!-- <p>home-page works!</p> -->
 
 <div class="container-outer">
+  <!-- Form: Url Input -->
   <div id="url-form">
     <form [formGroup]="homeForm">
       <mat-form-field class="form">
         <mat-label class="mat-label">YouTube Url</mat-label>
         <input
+          required
           type="url"
           formControlName="url"
           matInput
@@ -17,8 +19,14 @@
       </mat-form-field>
     </form>
   </div>
+  <!-- Download Controls: Buttons to execute download. -->
   <div class="btn-container">
-    <button mat-raised-button color="primary" (click)="this.downloadSingle()">
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="homeForm.invalid"
+      (click)="this.downloadSingle()"
+    >
       Download Single
     </button>
     <mat-slide-toggle
@@ -26,15 +34,22 @@
       (change)="this.handleAudioOnlyToggle()"
       >Audio Only</mat-slide-toggle
     >
-    <button mat-raised-button color="accent" (click)="this.downloadPlaylist()">
+    <button
+      mat-raised-button
+      color="accent"
+      [disabled]="homeForm.invalid"
+      (click)="this.downloadPlaylist()"
+    >
       Downlaod Playlist
     </button>
   </div>
+  <!-- Form: Passcode Input -->
   <div id="code-form">
-    <form [formGroup]="homeForm">
+    <form [formGroup]="homeForm" required>
       <mat-form-field class="form">
         <mat-label class="mat-label">Authorization Code</mat-label>
         <input
+          required
           type="password"
           formControlName="passcode"
           matInput

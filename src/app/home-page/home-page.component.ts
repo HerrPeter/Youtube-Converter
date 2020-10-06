@@ -30,30 +30,28 @@ export class HomePageComponent implements OnInit {
   }
 
   async downloadSingle() {
-    let isValid = await this.converter.validateUrl(this.homeForm.value.url);
+    let url: string = this.homeForm.value.url;
+    let pass: string = this.homeForm.value.passcode;
+    let isValid = await this.converter.validateUrl(url, pass);
 
     if (isValid) {
-      let downUrl = this.converter.downloadSingle(
-        this.homeForm.value.url,
-        this.audioOnly
-      );
+      this.converter.downloadSingle(url, this.audioOnly, pass);
       // this.homeForm.setValue({url: downUrl})
       // this.url = downUrl;
     } else {
-      console.log('- Error: Invalid Url');
+      console.log('- Error: Invalid Url or Passcode');
     }
   }
 
   async downloadPlaylist() {
-    let isValid = await this.converter.validateUrl(
-      this.homeForm.value.url,
-      false
-    );
+    let url: string = this.homeForm.value.url;
+    let pass: string = this.homeForm.value.passcode;
+    let isValid = await this.converter.validateUrl(url, pass, false);
 
     if (isValid) {
-      this.converter.downloadPlaylist(this.homeForm.value.url, this.audioOnly);
+      this.converter.downloadPlaylist(url, this.audioOnly, pass);
     } else {
-      console.log('- Error: Invalid Url');
+      console.log('- Error: Invalid Url or Passcode');
     }
   }
 
