@@ -1,10 +1,10 @@
 <!-- <p>home-page works!</p> -->
 
 <div class="container-outer">
-  <div id="form-url">
-    <form class="example-form" [formGroup]="homeForm">
+  <div id="url-form">
+    <form [formGroup]="homeForm">
       <mat-form-field class="form">
-        <mat-label style="color: black">YouTube Url</mat-label>
+        <mat-label class="mat-label">YouTube Url</mat-label>
         <input
           type="url"
           formControlName="url"
@@ -17,7 +17,7 @@
       </mat-form-field>
     </form>
   </div>
-  <div class="container">
+  <div class="btn-container">
     <button mat-raised-button color="primary" (click)="this.downloadSingle()">
       Download Single
     </button>
@@ -29,6 +29,19 @@
     <button mat-raised-button color="accent" (click)="this.downloadPlaylist()">
       Downlaod Playlist
     </button>
+  </div>
+  <div id="code-form">
+    <form [formGroup]="homeForm">
+      <mat-form-field class="form">
+        <mat-label class="mat-label">Authorization Code</mat-label>
+        <input
+          type="password"
+          formControlName="passcode"
+          matInput
+          maxlength="100"
+        />
+      </mat-form-field>
+    </form>
   </div>
   <!-- <div>
     <a href="{{ this.url }}" download>Download Now</a>

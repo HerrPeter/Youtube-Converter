@@ -24,6 +24,7 @@ export class HomePageComponent implements OnInit {
   ngOnInit(): void {
     this.homeForm = this.fb.group({
       url: '',
+      passcode: '',
     });
     this.audioOnly = false;
   }
