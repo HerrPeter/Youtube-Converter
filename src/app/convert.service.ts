@@ -36,7 +36,7 @@ export class ConvertService {
     );
     let reqUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.VALIDATE_URL}?${query}`;
 
-    console.log(query);
+    // console.log(query);
 
     const headers = new HttpHeaders();
     headers.set('content-type', 'application/octet-stream');
