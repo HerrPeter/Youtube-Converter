@@ -18,6 +18,7 @@ export class HomePageComponent implements OnInit {
   homeForm: FormGroup;
   audioOnly: boolean;
   url: string = null;
+  serverError: boolean = true;
 
   constructor(private fb: FormBuilder, private converter: ConvertService) {}
 
@@ -27,6 +28,16 @@ export class HomePageComponent implements OnInit {
       passcode: '',
     });
     this.audioOnly = false;
+
+    let serverRes = this.pingServer();
+    serverRes.then((isError) => {
+      this.serverError = isError;
+      console.log(isError);
+    });
+  }
+
+  async pingServer() {
+    return await this.converter.pingServer();
   }
 
   async downloadSingle() {

@@ -3,6 +3,9 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { _SERVER } from '../const';
 
+/**
+ * Backend validation interface.
+ */
 interface IValidate_BE {
   isValid: boolean;
 }
@@ -12,6 +15,35 @@ interface IValidate_BE {
 })
 export class ConvertService {
   constructor(private http: HttpClient) {}
+
+  async pingServer(): Promise<boolean> {
+    let pingError = true;
+
+    let reqUrl = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.TEST}`;
+    const headers = new HttpHeaders();
+    headers.set('content-type', 'application/json');
+
+    //new Promise<boolean>((isSuccessful) => {
+    pingError = await new Promise<boolean>((isError) => {
+      this.http
+        .get(reqUrl, { headers: headers, observe: 'response' })
+        .subscribe(
+          (res) => {
+            if (res.status === 200) {
+              console.log('Server Reached');
+              isError(false);
+            }
+          },
+          (err) => {
+            console.log('Server NOT Reached');
+            isError(true);
+          }
+        );
+    });
+    // })
+
+    return pingError;
+  }
 
   encodeQuery(keys: string[], values: any[]) {
     if (keys.length !== values.length || keys.length === 0) {

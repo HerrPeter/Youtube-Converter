@@ -5,5 +5,6 @@ export const _SERVER = {
     SINGLE_DOWNLOAD: 'single',
     PLAYLIST_DOWNLOAD: 'playlist',
     VALIDATE_URL: 'validate',
+    TEST: 'test',
   },
 };

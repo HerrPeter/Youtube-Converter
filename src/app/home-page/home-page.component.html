@@ -1,4 +1,11 @@
 <div class="container-outer">
+  <!-- IF(Server Error): Display Error Msg -->
+  <h2 *ngIf="this.serverError" style="color: red">
+    Sorry, the server cannot be reached at the moment ='(
+  </h2>
+  <h4 *ngIf="this.serverError" style="color: blue">
+    Please try again later today!
+  </h4>
   <!-- Form: Url Input -->
   <div id="url-form">
     <form [formGroup]="homeForm">
