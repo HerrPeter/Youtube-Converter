@@ -14,6 +14,8 @@ interface IValidate_BE {
   providedIn: 'root',
 })
 export class ConvertService {
+  private serverError = true;
+
   constructor(private http: HttpClient) {}
 
   async pingServer(): Promise<boolean> {
@@ -23,7 +25,6 @@ export class ConvertService {
     const headers = new HttpHeaders();
     headers.set('content-type', 'application/json');
 
-    //new Promise<boolean>((isSuccessful) => {
     pingError = await new Promise<boolean>((isError) => {
       this.http
         .get(reqUrl, { headers: headers, observe: 'response' })
@@ -40,8 +41,8 @@ export class ConvertService {
           }
         );
     });
-    // })
 
+    this.serverError = pingError;
     return pingError;
   }
 
@@ -62,6 +63,11 @@ export class ConvertService {
   }
 
   async validateUrl(url: string, passcode: string, isSingle: boolean = true) {
+    if (this.serverError) {
+      console.log('Server Error =/');
+      return;
+    }
+
     let query: string = this.encodeQuery(
       ['url', 'isSingle', 'pass'],
       [url, isSingle, passcode]
@@ -83,6 +89,11 @@ export class ConvertService {
   }
 
   downloadSingle(url: string, audioOnly: boolean, passcode: string) {
+    if (this.serverError) {
+      console.log('Server Error =/');
+      return;
+    }
+
     let userUrl: string = url;
     let query: string = this.encodeQuery(
       ['url', 'audioOnly', 'pass'],
@@ -105,6 +116,11 @@ export class ConvertService {
   }
 
   downloadPlaylist(url: string, audioOnly: boolean, passcode: string) {
+    if (this.serverError) {
+      console.log('Server Error =/');
+      return;
+    }
+
     let query: string = this.encodeQuery(
       ['url', 'audioOnly', 'pass'],
       [url, audioOnly, passcode]
