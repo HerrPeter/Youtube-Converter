@@ -10,12 +10,6 @@ import {
 } from '@angular/forms';
 import { IfStmt } from '@angular/compiler';
 
-enum IUrlType {
-  singleVideo,
-  playlist,
-  none,
-}
-
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -24,19 +18,61 @@ enum IUrlType {
 export class HomePageComponent implements OnInit {
   homeForm: FormGroup;
   audioOnly: boolean;
-  urlType = IUrlType.none;
+  private _singleDisabled = true;
+  private _playlistDisabled = true;
+  // urlType = IUrlType.none;
   url: string = null;
   serverError: boolean = true;
+  btnDisabled = {
+    single: true,
+    playlist: true,
+  };
+
+  // get singleDisabled() {
+  //   return this._singleDisabled;
+  // }
+  // set singleDisabled(value) {
+  //   switch (value) {
+  //     case IUrlType.singleVideo:
+  //       this._singleDisabled = false;
+  //       this._playlistDisabled = true;
+  //       break;
+  //     default:
+  //         this._singleDisabled = true;
+  //   }
+
+  //   // this._singleDisabled = value;
+  //   // this._playlistDisabled = !value;
+
+  //   // console.log(`Single Disabled: ${value}`);
+  // }
+
+  // get playlistDisabled(): boolean {
+  //   return this._playlistDisabled;
+  // }
+  // set playlistDisabled(value: boolean) {
+  //   this._playlistDisabled = value;
+  //   this._singleDisabled = !value;
+
+  //   console.log(`Playlist Disabled: ${value}`);
+  // }
 
   constructor(private fb: FormBuilder, private converter: ConvertService) {}
 
   ngOnInit(): void {
+    // Init home page form group
     this.homeForm = this.fb.group({
       url: '',
       passcode: '',
     });
     this.audioOnly = false;
 
+    // Watch for changes to the form (i.e. url changes)
+    this.homeForm.valueChanges.subscribe((data) => {
+      this.handleUrlChange(data.url);
+    });
+
+    // Test if server is up and running
     let serverRes = this.pingServer();
     serverRes.then((isError) => {
       this.serverError = isError;
@@ -77,18 +113,24 @@ export class HomePageComponent implements OnInit {
   handleUrlChange(url: string): void {
     this.url = url;
     url = url.toLowerCase();
-
+    // console.log(url);
     if (!url.includes('youtube.com')) {
       // Invalid url
-      this.urlType = IUrlType.none;
+      // this.urlType = IUrlType.none;
+      // this.singleDisabled = true;
+      // this.playlistDisabled = true;
+      this.btnDisabled.single = true;
+      this.btnDisabled.playlist = true;
       return;
     }
 
     // Check if url is a playlist or just a single video url.
-    if (url.includes('list=', 11) || url.includes('playlist/', 11)) {
-      this.urlType = IUrlType.playlist; // Playlist
+    if (url.includes('list=', 11) || url.includes('playlist', 11)) {
+      this.btnDisabled.playlist = false;
+      this.btnDisabled.single = true;
     } else {
-      this.urlType = IUrlType.singleVideo; // Single video
+      this.btnDisabled.single = false;
+      this.btnDisabled.playlist = true;
     }
   }
 

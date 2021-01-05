@@ -19,6 +19,7 @@
           #message
           maxlength="256"
           placeholder="Ex: www.youtube.com/watch?v=12345"
+          onchange=""
         />
         <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
       </mat-form-field>
@@ -26,10 +27,11 @@
   </div>
   <!-- Download Controls: Buttons to execute download. -->
   <div class="btn-container">
+    <!-- <form [formGroup]="homeForm"> -->
     <button
       mat-raised-button
       color="primary"
-      [disabled]="homeForm.invalid"
+      [disabled]="this.btnDisabled.single"
       (click)="this.downloadSingle()"
     >
       Download Song
@@ -42,11 +44,12 @@
     <button
       mat-raised-button
       color="accent"
-      [disabled]="homeForm.invalid"
+      [disabled]="this.btnDisabled.playlist"
       (click)="this.downloadPlaylist()"
     >
       Downlaod Playlist
     </button>
+    <!-- </form> -->
   </div>
   <!-- Form: Passcode Input -->
   <div id="code-form">
