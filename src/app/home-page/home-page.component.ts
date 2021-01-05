@@ -8,6 +8,13 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { IfStmt } from '@angular/compiler';
+
+enum IUrlType {
+  singleVideo,
+  playlist,
+  none,
+}
 
 @Component({
   selector: 'app-home-page',
@@ -17,6 +24,7 @@ import {
 export class HomePageComponent implements OnInit {
   homeForm: FormGroup;
   audioOnly: boolean;
+  urlType = IUrlType.none;
   url: string = null;
   serverError: boolean = true;
 
@@ -68,6 +76,20 @@ export class HomePageComponent implements OnInit {
 
   handleUrlChange(url: string): void {
     this.url = url;
+    url = url.toLowerCase();
+
+    if (!url.includes('youtube.com')) {
+      // Invalid url
+      this.urlType = IUrlType.none;
+      return;
+    }
+
+    // Check if url is a playlist or just a single video url.
+    if (url.includes('list=', 11) || url.includes('playlist/', 11)) {
+      this.urlType = IUrlType.playlist; // Playlist
+    } else {
+      this.urlType = IUrlType.singleVideo; // Single video
+    }
   }
 
   handleAudioOnlyToggle(): void {
