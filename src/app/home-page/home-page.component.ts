@@ -18,44 +18,12 @@ import { IfStmt } from '@angular/compiler';
 export class HomePageComponent implements OnInit {
   homeForm: FormGroup;
   audioOnly: boolean;
-  private _singleDisabled = true;
-  private _playlistDisabled = true;
-  // urlType = IUrlType.none;
   url: string = null;
   serverError: boolean = true;
   btnDisabled = {
     single: true,
     playlist: true,
   };
-
-  // get singleDisabled() {
-  //   return this._singleDisabled;
-  // }
-  // set singleDisabled(value) {
-  //   switch (value) {
-  //     case IUrlType.singleVideo:
-  //       this._singleDisabled = false;
-  //       this._playlistDisabled = true;
-  //       break;
-  //     default:
-  //         this._singleDisabled = true;
-  //   }
-
-  //   // this._singleDisabled = value;
-  //   // this._playlistDisabled = !value;
-
-  //   // console.log(`Single Disabled: ${value}`);
-  // }
-
-  // get playlistDisabled(): boolean {
-  //   return this._playlistDisabled;
-  // }
-  // set playlistDisabled(value: boolean) {
-  //   this._playlistDisabled = value;
-  //   this._singleDisabled = !value;
-
-  //   console.log(`Playlist Disabled: ${value}`);
-  // }
 
   constructor(private fb: FormBuilder, private converter: ConvertService) {}
 
@@ -116,9 +84,6 @@ export class HomePageComponent implements OnInit {
     // console.log(url);
     if (!url.includes('youtube.com')) {
       // Invalid url
-      // this.urlType = IUrlType.none;
-      // this.singleDisabled = true;
-      // this.playlistDisabled = true;
       this.btnDisabled.single = true;
       this.btnDisabled.playlist = true;
       return;
