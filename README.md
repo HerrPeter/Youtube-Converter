@@ -1,7 +1,8 @@
 # YoutubeConverter
 
-Simple video or audio downloader for any public YouTube video or playlist (sent back as a zip file).
+This is a simple video or audio downloader for any public YouTube video or playlist (sends back an mp3, mp4, or zip file).
 Try the website out at: truedue.us
+Please note: due to bandwidth restrictions you will need to reach out to me personally to requrest an access token.
 
 ## Development server
 
