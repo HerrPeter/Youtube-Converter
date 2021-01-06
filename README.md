@@ -1,6 +1,7 @@
 # YoutubeConverter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0.
+Simple video or audio downloader for any public YouTube video or playlist (sent back as a zip file).
+Try the website out at: truedue.us
 
 ## Development server
 
