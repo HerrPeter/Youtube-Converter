@@ -31,12 +31,12 @@ export class ConvertService {
         .subscribe(
           (res) => {
             if (res.status === 200) {
-              console.log('Server Reached');
+              // console.log('Server Reached');
               isError(false);
             }
           },
           (err) => {
-            console.log('Server NOT Reached');
+            console.log('Server NOT Reached (please reach out to the Admin)');
             isError(true);
           }
         );

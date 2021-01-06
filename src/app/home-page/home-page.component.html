@@ -24,6 +24,21 @@
       </mat-form-field>
     </form>
   </div>
+  <!-- Form: Passcode Input -->
+  <div id="code-form">
+    <form [formGroup]="homeForm" required>
+      <mat-form-field class="form">
+        <mat-label class="mat-label">Authorization Code</mat-label>
+        <input
+          required
+          type="password"
+          formControlName="passcode"
+          matInput
+          maxlength="100"
+        />
+      </mat-form-field>
+    </form>
+  </div>
   <!-- Download Controls: Buttons to execute download. -->
   <div class="btn-container">
     <!-- <form [formGroup]="homeForm"> -->
@@ -50,20 +65,15 @@
     </button>
     <!-- </form> -->
   </div>
-  <!-- Form: Passcode Input -->
-  <div id="code-form">
-    <form [formGroup]="homeForm" required>
-      <mat-form-field class="form">
-        <mat-label class="mat-label">Authorization Code</mat-label>
-        <input
-          required
-          type="password"
-          formControlName="passcode"
-          matInput
-          maxlength="100"
-        />
-      </mat-form-field>
-    </form>
+  <!-- Loading/Progress Bar -->
+  <div id="container-progress" *ngIf="this.loading.inProgress">
+    <div id="progress-bar">
+      <mat-progress-bar
+        color="accent"
+        [mode]="loading.mode"
+        [bufferValue]="loading.percentDone"
+      ></mat-progress-bar>
+    </div>
   </div>
   <!-- <div>
     <a href="{{ this.url }}" download>Download Now</a>

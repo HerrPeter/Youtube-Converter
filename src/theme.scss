@@ -1,0 +1,76 @@
+@import "~@angular/material/theming";
+@include mat-core();
+
+/* For use in src/lib/core/theming/_palette.scss */
+$my-blue: (
+  50: #e9f8fd,
+  100: #c7edfa,
+  200: #a2e2f7,
+  300: #7cd6f3,
+  400: #60cdf1,
+  500: #44c4ee,
+  600: #3ebeec,
+  700: #35b6e9,
+  800: #2dafe7,
+  900: #1fa2e2,
+  A100: #ffffff,
+  A200: #e5f6ff,
+  A400: #b3e4ff,
+  A700: #99dbff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #000000,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+/* For use in src/lib/core/theming/_palette.scss */
+$my-green: (
+  50: #e4fce4,
+  100: #bcf7bc,
+  200: #8ff28f,
+  300: #62ed62,
+  400: #40e940,
+  500: #1ee51e,
+  600: #1ae21a,
+  700: #16de16,
+  800: #12da12,
+  900: #0ad30a,
+  A100: #fdfffd,
+  A200: #caffca,
+  A400: #97ff97,
+  A700: #7eff7e,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #000000,
+    800: #000000,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$my-app-primary: mat-palette($my-blue, 700, 200, 900);
+$my-app-accent: mat-palette($my-green, 700, 200, 900);
+$my-app-warn: mat-palette($mat-deep-orange);
+
+$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+@include angular-material-theme($my-app-theme);

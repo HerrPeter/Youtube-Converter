@@ -10,6 +10,12 @@ import {
 } from '@angular/forms';
 import { IfStmt } from '@angular/compiler';
 
+enum loadingMode {
+  none = 'none',
+  buffer = 'buffer',
+  unsure = 'indeterminate',
+}
+
 @Component({
   selector: 'app-home-page',
   templateUrl: './home-page.component.html',
@@ -20,6 +26,11 @@ export class HomePageComponent implements OnInit {
   audioOnly: boolean;
   url: string = null;
   serverError: boolean = true;
+  loading = {
+    mode: loadingMode.unsure,
+    percentDone: 0,
+    inProgress: false,
+  };
   btnDisabled = {
     single: true,
     playlist: true,
@@ -44,7 +55,6 @@ export class HomePageComponent implements OnInit {
     let serverRes = this.pingServer();
     serverRes.then((isError) => {
       this.serverError = isError;
-      console.log(isError);
     });
   }
 
@@ -53,28 +63,36 @@ export class HomePageComponent implements OnInit {
   }
 
   async downloadSingle() {
+    // Begin loading...
+    this.loading.inProgress = true;
+
     let url: string = this.homeForm.value.url;
     let pass: string = this.homeForm.value.passcode;
     let isValid = await this.converter.validateUrl(url, pass);
 
     if (isValid) {
       this.converter.downloadSingle(url, this.audioOnly, pass);
-      // this.homeForm.setValue({url: downUrl})
-      // this.url = downUrl;
+      this.loading.inProgress = false;
     } else {
       console.log('- Error: Invalid Url or Passcode');
+      this.loading.inProgress = false;
     }
   }
 
   async downloadPlaylist() {
+    // Begin loading...
+    this.loading.inProgress = true;
+
     let url: string = this.homeForm.value.url;
     let pass: string = this.homeForm.value.passcode;
     let isValid = await this.converter.validateUrl(url, pass, false);
 
     if (isValid) {
       this.converter.downloadPlaylist(url, this.audioOnly, pass);
+      this.loading.inProgress = false;
     } else {
       console.log('- Error: Invalid Url or Passcode');
+      this.loading.inProgress = false;
     }
   }
 
