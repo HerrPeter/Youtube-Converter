@@ -1,7 +1,7 @@
 # YoutubeConverter
 
 Simple video or audio downloader for any public YouTube video or playlist (sent back as a zip file).
-Try the website out at: [www.truedue.us](truedue.us)
+Try the website out at: truedue.us
 
 ## Development server
 
