@@ -81,6 +81,8 @@ export class HomePageComponent implements OnInit {
 
   async downloadPlaylist() {
     // Begin loading...
+    this.loading.percentDone = 0;
+    this.loading.mode = loadingMode.buffer;
     this.loading.inProgress = true;
 
     let url: string = this.homeForm.value.url;
@@ -88,13 +90,44 @@ export class HomePageComponent implements OnInit {
     let isValid = await this.converter.validateUrl(url, pass, false);
 
     if (isValid) {
-      this.converter.downloadPlaylist(url, this.audioOnly, pass);
-      this.loading.inProgress = false;
+      this.converter.downloadPlaylist(
+        url,
+        this.audioOnly,
+        pass,
+        this.handleProgressChange
+      );
     } else {
       console.log('- Error: Invalid Url or Passcode');
       this.loading.inProgress = false;
     }
   }
+
+  /**
+   * Update the UI progress bar.
+   * @param percent The percent currently completed.
+   */
+  handleProgressChange = (percent: number, done: boolean = false) => {
+    console.log(percent);
+    if (done) {
+      console.log('-- Done loading');
+      this.loading.inProgress = false;
+      this.loading.mode = loadingMode.buffer;
+      return;
+    }
+
+    if (percent === NaN) {
+      console.log('Error: Percent is NaN');
+      return;
+    }
+
+    console.log('Updating progress: ' + percent + '%');
+    this.loading.percentDone = percent;
+
+    if (percent >= 100) {
+      console.log('-- Unsure');
+      this.loading.mode = loadingMode.unsure;
+    }
+  };
 
   handleUrlChange(url: string): void {
     this.url = url;

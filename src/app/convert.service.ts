@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { SseService } from './sse.service';
 
 import { _SERVER } from '../const';
+import { NUMBER_TYPE } from '@angular/compiler/src/output/output_ast';
 
 /**
  * Backend validation interface.
@@ -16,7 +18,7 @@ interface IValidate_BE {
 export class ConvertService {
   private serverError = true;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private sseService: SseService) {}
 
   async pingServer(): Promise<boolean> {
     let pingError = true;
@@ -115,7 +117,56 @@ export class ConvertService {
     // return downUrl;
   }
 
-  downloadPlaylist(url: string, audioOnly: boolean, passcode: string) {
+  /**
+   * Initiate download of youtube playlist from a url.
+   * @param url
+   * @param audioOnly
+   * @param passcode
+   */
+  downloadPlaylist(
+    url: string,
+    audioOnly: boolean,
+    passcode: string,
+    updateUiProgressBar: Function
+  ) {
+    if (this.serverError) {
+      console.log('Server Error =/');
+      return;
+    }
+
+    let query: string = this.encodeQuery(
+      ['url', 'audioOnly', 'pass'],
+      [url, audioOnly, passcode]
+    );
+    let downUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?${query}`;
+
+    this.sseService.getServerSentEvent(downUrl).subscribe(
+      (data) => {
+        let stuff = String(data.data);
+        console.log(data);
+
+        // Check if data is zip file name.
+        if (stuff.includes('.zip')) {
+          // Request zip file from server.
+          // window.location.href = downUrl;
+          updateUiProgressBar(0, true);
+          return;
+        }
+
+        // Check if data is a number.
+        if (Number(stuff) !== NaN) {
+          console.log(stuff);
+          // Update progress bar.
+          updateUiProgressBar(Number(stuff));
+        }
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
+  }
+
+  _downloadPlaylist(url: string, audioOnly: boolean, passcode: string) {
     if (this.serverError) {
       console.log('Server Error =/');
       return;

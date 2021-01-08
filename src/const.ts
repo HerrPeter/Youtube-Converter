@@ -1,6 +1,6 @@
 export const _SERVER = {
-  SSL_DOMAIN: 'https://9c44fab7ed3c.ngrok.io', // Need to update when new domain is created from ngrok backend.
-  DOMAIN: 'http://9c44fab7ed3c.ngrok.io',
+  SSL_DOMAIN: 'https://f31f9c292393.ngrok.io', // Need to update when new domain is created from ngrok backend.
+  DOMAIN: 'http://f31f9c292393.ngrok.io',
   REQUESTS: {
     SINGLE_DOWNLOAD: 'single',
     PLAYLIST_DOWNLOAD: 'playlist',
