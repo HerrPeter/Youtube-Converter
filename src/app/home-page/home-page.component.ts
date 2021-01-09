@@ -107,7 +107,6 @@ export class HomePageComponent implements OnInit {
    * @param percent The percent currently completed.
    */
   handleProgressChange = (percent: number, done: boolean = false) => {
-    console.log(percent);
     if (done) {
       console.log('-- Done loading');
       this.loading.inProgress = false;

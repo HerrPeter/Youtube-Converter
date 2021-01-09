@@ -14,8 +14,9 @@ export class SseService {
         console.log('-- Open Connection --');
       };
 
-      eventSource.addEventListener('complete', () => {
+      eventSource.addEventListener('complete', (event) => {
         console.log('-- Closing --');
+        observer.next(event); // Playlist file name should be received here.
         eventSource.close();
       });
       // On message from server.

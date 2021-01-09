@@ -3,7 +3,6 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { SseService } from './sse.service';
 
 import { _SERVER } from '../const';
-import { NUMBER_TYPE } from '@angular/compiler/src/output/output_ast';
 
 /**
  * Backend validation interface.
@@ -134,30 +133,36 @@ export class ConvertService {
       return;
     }
 
-    let query: string = this.encodeQuery(
+    let query = this.encodeQuery(
       ['url', 'audioOnly', 'pass'],
       [url, audioOnly, passcode]
     );
-    let downUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?${query}`;
+    let downUrl = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?${query}`;
 
     this.sseService.getServerSentEvent(downUrl).subscribe(
-      (data) => {
-        let stuff = String(data.data);
-        console.log(data);
+      (event) => {
+        let data = String(event.data);
 
         // Check if data is zip file name.
-        if (stuff.includes('.zip')) {
+        if (data.includes('.zip')) {
           // Request zip file from server.
           // window.location.href = downUrl;
           updateUiProgressBar(0, true);
+
+          // Make another get request for the playlist zip file.
+          let playlistFile = data;
+          let query = this.encodeQuery(['file'], [playlistFile]);
+          let downUrl = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_FILE}?${query}`;
+          window.location.href = downUrl;
+          // window.open(downUrl);
+          // this.http.get(downUrl)
           return;
         }
 
         // Check if data is a number.
-        if (Number(stuff) !== NaN) {
-          console.log(stuff);
+        if (Number(data) !== NaN) {
           // Update progress bar.
-          updateUiProgressBar(Number(stuff));
+          updateUiProgressBar(Number(data));
         }
       },
       (err) => {

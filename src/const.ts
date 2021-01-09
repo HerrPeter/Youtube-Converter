@@ -4,6 +4,7 @@ export const _SERVER = {
   REQUESTS: {
     SINGLE_DOWNLOAD: 'single',
     PLAYLIST_DOWNLOAD: 'playlist',
+    PLAYLIST_FILE: 'playlist/file',
     VALIDATE_URL: 'validate',
     TEST: 'test',
   },
