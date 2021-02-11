@@ -8,7 +8,6 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { IfStmt } from '@angular/compiler';
 
 enum loadingMode {
   none = 'none',
@@ -25,11 +24,12 @@ export class HomePageComponent implements OnInit {
   homeForm: FormGroup;
   audioOnly: boolean;
   url: string = null;
-  serverError: boolean = true;
+  serverError: boolean = false;
+
   loading = {
     mode: loadingMode.unsure,
     percentDone: 0,
-    inProgress: false,
+    inProgress: true,
   };
   btnDisabled = {
     single: true,
@@ -44,6 +44,8 @@ export class HomePageComponent implements OnInit {
       url: '',
       passcode: '',
     });
+    // this.homeForm.get('url').disable();
+    this.homeForm.disable();
     this.audioOnly = false;
 
     // Watch for changes to the form (i.e. url changes)
@@ -52,13 +54,15 @@ export class HomePageComponent implements OnInit {
     });
 
     // Test if server is up and running
-    let serverRes = this.pingServer();
+    let serverRes = this.pingServerError();
     serverRes.then((isError) => {
       this.serverError = isError;
+      this.loading.inProgress = false;
+      if (!isError) this.homeForm.enable();
     });
   }
 
-  async pingServer() {
+  async pingServerError() {
     return await this.converter.pingServer();
   }
 
@@ -66,6 +70,17 @@ export class HomePageComponent implements OnInit {
     // Begin loading...
     this.loading.inProgress = true;
 
+    // Ping server to test...
+    let isError = await this.pingServerError();
+    if (isError) {
+      this.serverError = isError;
+      this.loading.inProgress = false;
+      // this.homeForm.disable();
+      console.log(isError);
+      return;
+    }
+
+    // Begin downloading single video...
     let url: string = this.homeForm.value.url;
     let pass: string = this.homeForm.value.passcode;
     let isValid = await this.converter.validateUrl(url, pass);

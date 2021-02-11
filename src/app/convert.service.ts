@@ -17,7 +17,7 @@ interface IValidate_BE {
 export class ConvertService {
   private serverError = true;
 
-  constructor(private http: HttpClient, private sseService: SseService) {}
+  constructor(private http: HttpClient, private sseService: SseService) { }
 
   async pingServer(): Promise<boolean> {
     let pingError = true;
@@ -32,7 +32,6 @@ export class ConvertService {
         .subscribe(
           (res) => {
             if (res.status === 200) {
-              // console.log('Server Reached');
               isError(false);
             }
           },
