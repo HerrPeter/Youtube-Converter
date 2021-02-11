@@ -29,9 +29,11 @@
   <!-- Download Controls: Buttons to execute download. -->
   <div class="btn-container">
     <!-- <form [formGroup]="homeForm"> -->
-    <button mat-raised-button color="primary" [disabled]="this.btnDisabled.single" (click)="this.downloadSingle()">
+    <button mat-raised-button color="primary" type="submit" [disabled]="this.btnDisabled.single"
+      (click)="this.downloadSingle()">
       Download Video
     </button>
+    <!-- </form> -->
     <mat-slide-toggle style="align-self: center" (change)="this.handleAudioOnlyToggle()">Audio Only</mat-slide-toggle>
     <button mat-raised-button color="accent" [disabled]="this.btnDisabled.playlist" (click)="this.downloadPlaylist()">
       Downlaod Playlist

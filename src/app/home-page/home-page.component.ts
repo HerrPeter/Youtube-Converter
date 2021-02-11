@@ -68,14 +68,19 @@ export class HomePageComponent implements OnInit {
 
   async downloadSingle() {
     // Begin loading...
+    this.loading.mode = loadingMode.unsure;
     this.loading.inProgress = true;
+    this.homeForm.disable();
+    this.btnDisabled.single = true;
 
     // Ping server to test...
     let isError = await this.pingServerError();
     if (isError) {
       this.serverError = isError;
       this.loading.inProgress = false;
-      // this.homeForm.disable();
+      this.btnDisabled.single = false;
+      this.homeForm.enable();
+
       console.log(isError);
       return;
     }
@@ -87,11 +92,13 @@ export class HomePageComponent implements OnInit {
 
     if (isValid) {
       this.converter.downloadSingle(url, this.audioOnly, pass);
-      this.loading.inProgress = false;
     } else {
       console.log('- Error: Invalid Url or Passcode');
-      this.loading.inProgress = false;
     }
+
+    this.loading.inProgress = false;
+    this.btnDisabled.single = false;
+    this.homeForm.enable();
   }
 
   async downloadPlaylist() {
@@ -99,7 +106,21 @@ export class HomePageComponent implements OnInit {
     this.loading.percentDone = 0;
     this.loading.mode = loadingMode.buffer;
     this.loading.inProgress = true;
+    this.btnDisabled.playlist = true;
 
+    // Ping server to test...
+    let isError = await this.pingServerError();
+    if (isError) {
+      this.serverError = isError;
+      this.loading.inProgress = false;
+      this.btnDisabled.playlist = false;
+      this.homeForm.enable();
+
+      console.log(isError);
+      return;
+    }
+
+    // Begin downloading playlist...
     let url: string = this.homeForm.value.url;
     let pass: string = this.homeForm.value.passcode;
     let isValid = await this.converter.validateUrl(url, pass, false);
@@ -125,7 +146,8 @@ export class HomePageComponent implements OnInit {
     if (done) {
       console.log('-- Done loading');
       this.loading.inProgress = false;
-      this.loading.mode = loadingMode.buffer;
+      this.btnDisabled.playlist = false;
+      this.homeForm.enable();
       return;
     }
 
@@ -138,8 +160,8 @@ export class HomePageComponent implements OnInit {
     this.loading.percentDone = percent;
 
     if (percent >= 100) {
-      console.log('-- Unsure');
       this.loading.mode = loadingMode.unsure;
+      console.log('-- Unsure');
     }
   };
 
