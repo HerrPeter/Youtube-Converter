@@ -11,15 +11,8 @@
     <form [formGroup]="homeForm">
       <mat-form-field class="form">
         <mat-label class="mat-label">YouTube Url</mat-label>
-        <input
-          required
-          type="url"
-          formControlName="url"
-          matInput
-          #message
-          maxlength="256"
-          placeholder="Ex: www.youtube.com/watch?v=12345"
-        />
+        <input required type="url" formControlName="url" matInput #message maxlength="256"
+          placeholder="Ex: www.youtube.com/watch?v=12345" />
         <mat-hint align="end">{{ message.value.length }} / 256</mat-hint>
       </mat-form-field>
     </form>
@@ -29,38 +22,18 @@
     <form [formGroup]="homeForm" required>
       <mat-form-field class="form">
         <mat-label class="mat-label">Authorization Code</mat-label>
-        <input
-          required
-          type="password"
-          formControlName="passcode"
-          matInput
-          maxlength="100"
-        />
+        <input required type="password" formControlName="passcode" matInput maxlength="100" />
       </mat-form-field>
     </form>
   </div>
   <!-- Download Controls: Buttons to execute download. -->
   <div class="btn-container">
     <!-- <form [formGroup]="homeForm"> -->
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="this.btnDisabled.single"
-      (click)="this.downloadSingle()"
-    >
-      Download Song
+    <button mat-raised-button color="primary" [disabled]="this.btnDisabled.single" (click)="this.downloadSingle()">
+      Download Video
     </button>
-    <mat-slide-toggle
-      style="align-self: center"
-      (change)="this.handleAudioOnlyToggle()"
-      >Audio Only</mat-slide-toggle
-    >
-    <button
-      mat-raised-button
-      color="accent"
-      [disabled]="this.btnDisabled.playlist"
-      (click)="this.downloadPlaylist()"
-    >
+    <mat-slide-toggle style="align-self: center" (change)="this.handleAudioOnlyToggle()">Audio Only</mat-slide-toggle>
+    <button mat-raised-button color="accent" [disabled]="this.btnDisabled.playlist" (click)="this.downloadPlaylist()">
       Downlaod Playlist
     </button>
     <!-- </form> -->
@@ -68,11 +41,7 @@
   <!-- Loading/Progress Bar -->
   <div id="container-progress" *ngIf="this.loading.inProgress">
     <div id="progress-bar">
-      <mat-progress-bar
-        color="accent"
-        [mode]="loading.mode"
-        [value]="loading.percentDone"
-      ></mat-progress-bar>
+      <mat-progress-bar color="accent" [mode]="loading.mode" [value]="loading.percentDone"></mat-progress-bar>
     </div>
   </div>
   <!-- <div>
