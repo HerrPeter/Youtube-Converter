@@ -36,7 +36,7 @@ export class HomePageComponent implements OnInit {
     playlist: true,
   };
 
-  constructor(private fb: FormBuilder, private converter: ConvertService) {}
+  constructor(private fb: FormBuilder, private converter: ConvertService) { }
 
   ngOnInit(): void {
     // Init home page form group
@@ -132,7 +132,7 @@ export class HomePageComponent implements OnInit {
     this.url = url;
     url = url.toLowerCase();
     // console.log(url);
-    if (!url.includes('youtube.com')) {
+    if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
       // Invalid url
       this.btnDisabled.single = true;
       this.btnDisabled.playlist = true;
