@@ -1,6 +1,6 @@
 export const _SERVER = {
-  SSL_DOMAIN: 'https://server-ytdl.herokuapp.com', // Need to update when new domain is created from ngrok backend.
-  DOMAIN: 'https://server-ytdl.herokuapp.com',
+  SSL_DOMAIN: 'http://localhost:8000', // Need to update when new domain is created from ngrok backend.
+  DOMAIN: 'http://localhost:8000',
   REQUESTS: {
     SINGLE_DOWNLOAD: 'single',
     PLAYLIST_DOWNLOAD: 'playlist',
