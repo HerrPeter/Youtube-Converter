@@ -36,13 +36,14 @@ export class HomePageComponent implements OnInit {
     playlist: true,
   };
 
-  constructor(private fb: FormBuilder, private converter: ConvertService) { }
+  constructor(private fb: FormBuilder, private converter: ConvertService) {}
 
   ngOnInit(): void {
     // Init home page form group
     this.homeForm = this.fb.group({
       url: '',
       passcode: '',
+      limitVideos: 10,
     });
     // this.homeForm.get('url').disable();
     this.homeForm.disable();
@@ -123,11 +124,13 @@ export class HomePageComponent implements OnInit {
     // Begin downloading playlist...
     let url: string = this.homeForm.value.url;
     let pass: string = this.homeForm.value.passcode;
+    let limitVideos: number = Number(this.homeForm.value.limitVideos);
     let isValid = await this.converter.validateUrl(url, pass, false);
 
     if (isValid) {
       this.converter.downloadPlaylist(
         url,
+        limitVideos,
         this.audioOnly,
         pass,
         this.handleProgressChange

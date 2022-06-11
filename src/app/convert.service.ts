@@ -17,7 +17,7 @@ interface IValidate_BE {
 export class ConvertService {
   private serverError = true;
 
-  constructor(private http: HttpClient, private sseService: SseService) { }
+  constructor(private http: HttpClient, private sseService: SseService) {}
 
   async pingServer(): Promise<boolean> {
     let pingError = true;
@@ -123,6 +123,7 @@ export class ConvertService {
    */
   downloadPlaylist(
     url: string,
+    limitVideos: number,
     audioOnly: boolean,
     passcode: string,
     updateUiProgressBar: Function
@@ -133,8 +134,8 @@ export class ConvertService {
     }
 
     let query = this.encodeQuery(
-      ['url', 'audioOnly', 'pass'],
-      [url, audioOnly, passcode]
+      ['url', 'audioOnly', 'pass', 'limitVideos'],
+      [url, audioOnly, passcode, limitVideos]
     );
     let downUrl = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?${query}`;
 
