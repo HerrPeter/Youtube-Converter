@@ -8,9 +8,13 @@
   </h4>
 
   <!-- Add material tabs to organize downloader and scheduler -->
-  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" dynamicHeight>
-    <div class="container-outer">
-      <mat-tab label="Youtube Downloader">
+  <mat-tab-group
+    mat-stretch-tabs="false"
+    mat-align-tabs="center"
+    style="height: 330px"
+  >
+    <mat-tab label="Youtube Downloader">
+      <div style="height: 100%">
         <!-- Form: Url Input -->
         <div id="url-form" class="make-center">
           <form [formGroup]="homeForm">
@@ -99,8 +103,13 @@
         <!-- <div>
         <a href="{{ this.url }}" download>Download Now</a>
       </div> -->
-      </mat-tab>
-    </div>
-    <mat-tab label="Pic-To-Calendar"> Do scheduling stuff here! </mat-tab>
+      </div>
+    </mat-tab>
+    <mat-tab label="Pic-To-Calendar" style="height: 100%">
+      <!-- <div appDrag (files)="filesDropped($event)"> -->
+      <div class="make-center2">
+        <button mat-raised-button>Upload Screenshot</button>
+      </div>
+    </mat-tab>
   </mat-tab-group>
 </div>

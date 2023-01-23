@@ -25,6 +25,7 @@ export class HomePageComponent implements OnInit {
   audioOnly: boolean;
   url: string = null;
   serverError: boolean = false;
+  files;
 
   loading = {
     mode: loadingMode.unsure,
@@ -154,10 +155,11 @@ export class HomePageComponent implements OnInit {
       return;
     }
 
-    if (percent === NaN) {
-      console.log('Error: Percent is NaN');
-      return;
-    }
+    // ERROR: percent is ALWAYS a number given the param type.
+    // if (percent === NaN) {
+    //   console.log('Error: Percent is NaN');
+    //   return;
+    // }
 
     console.log('Updating progress: ' + percent + '%');
     this.loading.percentDone = percent;
