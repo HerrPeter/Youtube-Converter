@@ -154,10 +154,10 @@ export class HomePageComponent implements OnInit {
       return;
     }
 
-    if (percent === NaN) {
-      console.log('Error: Percent is NaN');
-      return;
-    }
+    // if (percent === NaN) {
+    //   console.log('Error: Percent is NaN');
+    //   return;
+    // }
 
     console.log('Updating progress: ' + percent + '%');
     this.loading.percentDone = percent;
