@@ -206,7 +206,7 @@ export class HomePageComponent implements OnInit {
   }
 
   handleConvertToCalendar = () => {
-    console.log('Click');
+    console.log('Starting Convert to Calendar Process...');
     console.log(this.schedulePicForm.value);
   };
 }
