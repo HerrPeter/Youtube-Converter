@@ -21,6 +21,10 @@ enum loadingMode {
   styleUrls: ['./home-page.component.less'],
 })
 export class HomePageComponent implements OnInit {
+  // Init form control for scheduler image upload
+  Form_Control_Schedule_Image = new FormControl('', []);
+
+  schedulePicForm: FormGroup;
   homeForm: FormGroup;
   audioOnly: boolean;
   url: string = null;
@@ -40,12 +44,18 @@ export class HomePageComponent implements OnInit {
   constructor(private fb: FormBuilder, private converter: ConvertService) {}
 
   ngOnInit(): void {
+    // Init schedule to pic form group
+    this.schedulePicForm = new FormGroup({
+      scheduleImage: new FormControl(''),
+    });
+
     // Init home page form group
     this.homeForm = this.fb.group({
       url: '',
       passcode: '',
       limitVideos: 10,
     });
+
     // this.homeForm.get('url').disable();
     this.homeForm.disable();
     this.audioOnly = false;
@@ -194,4 +204,9 @@ export class HomePageComponent implements OnInit {
   handleAudioOnlyToggle(): void {
     this.audioOnly = !this.audioOnly;
   }
+
+  handleConvertToCalendar = () => {
+    console.log('Click');
+    console.log(this.schedulePicForm.value);
+  };
 }

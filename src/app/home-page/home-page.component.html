@@ -108,7 +108,22 @@
     <mat-tab label="Pic-To-Calendar" style="height: 100%">
       <!-- <div appDrag (files)="filesDropped($event)"> -->
       <div class="make-center2">
-        <button mat-raised-button>Upload Screenshot</button>
+        <!-- <button mat-raised-button>Upload Screenshot</button> -->
+        <form
+          [formGroup]="schedulePicForm"
+          (ngSubmit)="handleConvertToCalendar()"
+        >
+          <!-- <mat-form-field> -->
+          <mat-label>Upload Schedule Image</mat-label>
+          <input
+            type="file"
+            id="schedule-pic"
+            accept="image/png, image/jpeg"
+            formControlName="scheduleImage"
+          />
+          <button type="submit">Convert to Calendar</button>
+          <!-- </mat-form-field> -->
+        </form>
       </div>
     </mat-tab>
   </mat-tab-group>
