@@ -160,7 +160,7 @@ export class ConvertService {
         }
 
         // Check if data is a number.
-        if (Number(data) !== NaN) {
+        if (!Number.isNaN(data)) {
           // Update progress bar.
           updateUiProgressBar(Number(data));
         }
