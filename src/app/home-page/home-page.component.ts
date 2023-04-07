@@ -21,15 +21,12 @@ enum loadingMode {
   styleUrls: ['./home-page.component.less'],
 })
 export class HomePageComponent implements OnInit {
-  // Init form control for scheduler image upload
-  Form_Control_Schedule_Image = new FormControl('', []);
-
   schedulePicForm: FormGroup;
   homeForm: FormGroup;
   audioOnly: boolean;
   url: string = null;
   serverError: boolean = false;
-  files;
+  scheduleImageFile: File;
 
   loading = {
     mode: loadingMode.unsure,
@@ -206,7 +203,20 @@ export class HomePageComponent implements OnInit {
   }
 
   handleConvertToCalendar = () => {
+    if (!this.scheduleImageFile) {
+      console.log('Missing an image file');
+      return;
+    }
+
     console.log('Starting Convert to Calendar Process...');
-    console.log(this.schedulePicForm.value);
+    // console.log(this.schedulePicForm.value);
+    console.log('-- Sending File: ');
+    console.log(this.scheduleImageFile);
+    this.converter.sendImage(this.scheduleImageFile);
+  };
+
+  handleFileSelected = (event: any) => {
+    this.scheduleImageFile = event.target.files[0];
+    // console.log('Selected File: ', this.scheduleImageFile);
   };
 }

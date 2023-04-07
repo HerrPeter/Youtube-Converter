@@ -122,6 +122,7 @@
             id="schedule-pic"
             accept="image/png, image/jpeg"
             formControlName="scheduleImage"
+            (change)="handleFileSelected($event)"
           />
           <button type="submit">Convert to Calendar</button>
           <!-- </mat-form-field> -->
