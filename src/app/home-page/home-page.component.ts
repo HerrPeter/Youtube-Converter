@@ -209,7 +209,7 @@ export class HomePageComponent implements OnInit {
     }
 
     console.log('Starting Convert to Calendar Process...');
-    // console.log(this.schedulePicForm.value);
+    // console.log(this.schedulePicForm.value);   // Old: used to find the dir of the file
     console.log('-- Sending File: ');
     console.log(this.scheduleImageFile);
     this.converter.sendImage(this.scheduleImageFile);
