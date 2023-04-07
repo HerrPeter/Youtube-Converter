@@ -21,10 +21,12 @@ enum loadingMode {
   styleUrls: ['./home-page.component.less'],
 })
 export class HomePageComponent implements OnInit {
+  schedulePicForm: FormGroup;
   homeForm: FormGroup;
   audioOnly: boolean;
   url: string = null;
   serverError: boolean = false;
+  scheduleImageFile: File;
 
   loading = {
     mode: loadingMode.unsure,
@@ -39,12 +41,18 @@ export class HomePageComponent implements OnInit {
   constructor(private fb: FormBuilder, private converter: ConvertService) {}
 
   ngOnInit(): void {
+    // Init schedule to pic form group
+    this.schedulePicForm = new FormGroup({
+      scheduleImage: new FormControl(''),
+    });
+
     // Init home page form group
     this.homeForm = this.fb.group({
       url: '',
       passcode: '',
       limitVideos: 10,
     });
+
     // this.homeForm.get('url').disable();
     this.homeForm.disable();
     this.audioOnly = false;
@@ -154,10 +162,11 @@ export class HomePageComponent implements OnInit {
       return;
     }
 
-    if (percent === NaN) {
-      console.log('Error: Percent is NaN');
-      return;
-    }
+    // ERROR: percent is ALWAYS a number given the param type.
+    // if (percent === NaN) {
+    //   console.log('Error: Percent is NaN');
+    //   return;
+    // }
 
     console.log('Updating progress: ' + percent + '%');
     this.loading.percentDone = percent;
@@ -192,4 +201,22 @@ export class HomePageComponent implements OnInit {
   handleAudioOnlyToggle(): void {
     this.audioOnly = !this.audioOnly;
   }
+
+  handleConvertToCalendar = () => {
+    if (!this.scheduleImageFile) {
+      console.log('Missing an image file');
+      return;
+    }
+
+    console.log('Starting Convert to Calendar Process...');
+    // console.log(this.schedulePicForm.value);   // Old: used to find the dir of the file
+    console.log('-- Sending File: ');
+    console.log(this.scheduleImageFile);
+    this.converter.sendImage(this.scheduleImageFile);
+  };
+
+  handleFileSelected = (event: any) => {
+    this.scheduleImageFile = event.target.files[0];
+    // console.log('Selected File: ', this.scheduleImageFile);
+  };
 }

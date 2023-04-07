@@ -160,7 +160,7 @@ export class ConvertService {
         }
 
         // Check if data is a number.
-        if (Number(data) !== NaN) {
+        if (!Number.isNaN(data)) {
           // Update progress bar.
           updateUiProgressBar(Number(data));
         }
@@ -184,5 +184,32 @@ export class ConvertService {
     let downUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?${query}`;
 
     window.location.href = downUrl;
+  }
+
+  async sendImage(file: File): Promise<void> {
+    const formData = new FormData();
+    formData.append('image', file, file.name);
+
+    let url = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PIC_TO_CALENDAR}`;
+
+    const response = await this.http
+      .post(url, formData, { responseType: 'text' })
+      .subscribe(
+        (response) => {
+          console.log('-- Image uploaded successfully: ', response);
+
+          // Create a blob object from the resposne text
+          const blob = new Blob([response], { type: 'text/calendar' });
+
+          // Create a link element to download the file
+          const link = window.URL.createObjectURL(blob);
+
+          // Open the download link
+          window.open(link);
+        },
+        (error) => {
+          console.error('-- Error uploading image: ', error);
+        }
+      );
   }
 }
