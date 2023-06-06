@@ -8,11 +8,8 @@
   </h4>
 
   <!-- Add material tabs to organize downloader and scheduler -->
-  <mat-tab-group
-    mat-stretch-tabs="false"
-    mat-align-tabs="center"
-    style="height: 330px"
-  >
+  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" dynamicHeight>
+    <!-- <div style="height: 100%"> -->
     <mat-tab label="Youtube Downloader">
       <div style="height: 100%">
         <!-- Form: Url Input -->
@@ -129,5 +126,6 @@
         </form>
       </div>
     </mat-tab>
+    <!-- </div> -->
   </mat-tab-group>
 </div>
