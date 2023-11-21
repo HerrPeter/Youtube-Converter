@@ -9,9 +9,10 @@
 
   <!-- Add material tabs to organize downloader and scheduler -->
   <mat-tab-group
+    dynamicHeight
     mat-stretch-tabs="false"
     mat-align-tabs="center"
-    style="height: 330px"
+    style="height: 100%"
   >
     <mat-tab label="Youtube Downloader">
       <div style="height: 100%">
@@ -121,6 +122,7 @@
               <br />
               <br />
               <input
+                matInput
                 type="file"
                 id="schedule-pic"
                 accept="image/png, image/jpeg"
@@ -132,7 +134,49 @@
             </form>
           </div>
         </mat-grid-tile>
-        <mat-grid-tile> Second Row </mat-grid-tile>
+        <mat-grid-tile>Example of what's to come...</mat-grid-tile>
+        <mat-grid-tile>
+          <mat-list style="display: flex">
+            <mat-list-item style="height: 100%">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Tues, Nov. 20, 2023</mat-card-title>
+                  <mat-card-subtitle>9:00 - 17:30</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions>
+                  <button mat-button>Ex: Input</button>
+                  <input mat-checkbox type="checkbox" />
+                </mat-card-actions>
+              </mat-card>
+            </mat-list-item>
+            <br />
+            <mat-list-item style="height: 100%">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Wed, Nov. 21, 2023</mat-card-title>
+                  <mat-card-subtitle>9:00 - 17:30</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions>
+                  <button mat-button>Ex: Input</button>
+                  <input mat-checkbox type="checkbox" />
+                </mat-card-actions>
+              </mat-card>
+            </mat-list-item>
+            <br />
+            <mat-list-item style="height: 100%">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Thur, Nov. 22, 2023</mat-card-title>
+                  <mat-card-subtitle>9:00 - 17:30</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions>
+                  <button mat-button>Ex: Input</button>
+                  <input mat-checkbox type="checkbox" />
+                </mat-card-actions>
+              </mat-card>
+            </mat-list-item>
+          </mat-list>
+        </mat-grid-tile>
       </mat-grid-list>
     </mat-tab>
   </mat-tab-group>
