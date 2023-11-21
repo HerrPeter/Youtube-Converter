@@ -8,8 +8,12 @@
   </h4>
 
   <!-- Add material tabs to organize downloader and scheduler -->
-  <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="center" dynamicHeight>
-    <!-- <div style="height: 100%"> -->
+  <mat-tab-group
+    dynamicHeight
+    mat-stretch-tabs="false"
+    mat-align-tabs="center"
+    style="height: 100%"
+  >
     <mat-tab label="Youtube Downloader">
       <div style="height: 100%">
         <!-- Form: Url Input -->
@@ -105,27 +109,75 @@
     </mat-tab>
     <mat-tab label="Pic-To-Calendar" style="height: 100%">
       <!-- <div appDrag (files)="filesDropped($event)"> -->
-      <div class="make-center2">
-        <!-- <button mat-raised-button>Upload Screenshot</button> -->
-        <form
-          [formGroup]="schedulePicForm"
-          (ngSubmit)="handleConvertToCalendar()"
-        >
-          <!-- <mat-form-field> -->
-          <mat-label>Upload Schedule Image</mat-label>
-          <br />
-          <br />
-          <input
-            type="file"
-            id="schedule-pic"
-            accept="image/png, image/jpeg"
-            formControlName="scheduleImage"
-            (change)="handleFileSelected($event)"
-          />
-          <button type="submit">Convert to Calendar</button>
-          <!-- </mat-form-field> -->
-        </form>
-      </div>
+      <mat-grid-list cols="1" rowHeight="100px">
+        <mat-grid-tile>
+          <div class="make-center2">
+            <!-- <button mat-raised-button>Upload Screenshot</button> -->
+            <form
+              [formGroup]="schedulePicForm"
+              (ngSubmit)="handleConvertToCalendar()"
+            >
+              <!-- <mat-form-field> -->
+              <mat-label>Upload Schedule Image</mat-label>
+              <br />
+              <br />
+              <input
+                matInput
+                type="file"
+                id="schedule-pic"
+                accept="image/png, image/jpeg"
+                formControlName="scheduleImage"
+                (change)="handleFileSelected($event)"
+              />
+              <button type="submit">Convert to Calendar</button>
+              <!-- </mat-form-field> -->
+            </form>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>Example of what's to come...</mat-grid-tile>
+        <mat-grid-tile>
+          <mat-list style="display: flex">
+            <mat-list-item style="height: 100%">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Tues, Nov. 20, 2023</mat-card-title>
+                  <mat-card-subtitle>9:00 - 17:30</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions>
+                  <button mat-button>Ex: Input</button>
+                  <input mat-checkbox type="checkbox" />
+                </mat-card-actions>
+              </mat-card>
+            </mat-list-item>
+            <br />
+            <mat-list-item style="height: 100%">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Wed, Nov. 21, 2023</mat-card-title>
+                  <mat-card-subtitle>9:00 - 17:30</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions>
+                  <button mat-button>Ex: Input</button>
+                  <input mat-checkbox type="checkbox" />
+                </mat-card-actions>
+              </mat-card>
+            </mat-list-item>
+            <br />
+            <mat-list-item style="height: 100%">
+              <mat-card>
+                <mat-card-header>
+                  <mat-card-title>Thur, Nov. 22, 2023</mat-card-title>
+                  <mat-card-subtitle>9:00 - 17:30</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-actions>
+                  <button mat-button>Ex: Input</button>
+                  <input mat-checkbox type="checkbox" />
+                </mat-card-actions>
+              </mat-card>
+            </mat-list-item>
+          </mat-list>
+        </mat-grid-tile>
+      </mat-grid-list>
     </mat-tab>
     <!-- </div> -->
   </mat-tab-group>

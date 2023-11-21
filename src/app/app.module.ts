@@ -6,8 +6,12 @@ import { MatLegacyButtonModule as MatButtonModule } from '@angular/material/lega
 import { MatLegacySlideToggleModule as MatSlideToggleModule } from '@angular/material/legacy-slide-toggle';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatLegacyProgressBarModule as MatProgressBarModule } from '@angular/material/legacy-progress-bar';
-import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 import { MatLegacyTabsModule as MatTabsModule } from '@angular/material/legacy-tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+import { MatListModule } from '@angular/material/list';
+import { MatCardModule } from '@angular/material/card';
+// import { MatLegacyCardModule as MatCardModule } from '@angular/material/legacy-card';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +37,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatCardModule,
     ReactiveFormsModule,
     MatTabsModule,
+    MatListModule,
+    MatCheckboxModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
