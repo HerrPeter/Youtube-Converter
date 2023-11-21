@@ -55,7 +55,7 @@ export class HomePageComponent implements OnInit {
 
     // this.homeForm.get('url').disable();
     this.homeForm.disable();
-    this.audioOnly = false;
+    this.audioOnly = true;
 
     // Watch for changes to the form (i.e. url changes)
     this.homeForm.valueChanges.subscribe((data) => {
