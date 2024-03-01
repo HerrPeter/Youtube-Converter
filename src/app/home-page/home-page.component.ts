@@ -24,6 +24,7 @@ export class HomePageComponent implements OnInit {
   schedulePicForm: FormGroup;
   homeForm: FormGroup;
   audioOnly: boolean;
+  highestQuality: boolean;
   url: string = null;
   serverError: boolean = false;
   scheduleImageFile: File;
@@ -56,6 +57,7 @@ export class HomePageComponent implements OnInit {
     // this.homeForm.get('url').disable();
     this.homeForm.disable();
     this.audioOnly = true;
+    this.highestQuality = false;
 
     // Watch for changes to the form (i.e. url changes)
     this.homeForm.valueChanges.subscribe((data) => {
@@ -100,7 +102,12 @@ export class HomePageComponent implements OnInit {
     let isValid = await this.converter.validateUrl(url, pass);
 
     if (isValid) {
-      this.converter.downloadSingle(url, this.audioOnly, pass);
+      this.converter.downloadSingle(
+        url,
+        this.audioOnly,
+        pass,
+        this.highestQuality
+      );
     } else {
       console.log('- Error: Invalid Url or Passcode');
     }
@@ -141,7 +148,8 @@ export class HomePageComponent implements OnInit {
         limitVideos,
         this.audioOnly,
         pass,
-        this.handleProgressChange
+        this.handleProgressChange,
+        this.highestQuality
       );
     } else {
       console.log('- Error: Invalid Url or Passcode');
@@ -200,6 +208,10 @@ export class HomePageComponent implements OnInit {
 
   handleAudioOnlyToggle(): void {
     this.audioOnly = !this.audioOnly;
+  }
+
+  handleHighestQualityToggle(): void {
+    this.highestQuality = !this.highestQuality;
   }
 
   handleConvertToCalendar = () => {

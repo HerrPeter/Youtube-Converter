@@ -120,5 +120,8 @@
       }
     }
   },
-  "defaultProject": "Youtube-Converter"
+  "defaultProject": "Youtube-Converter",
+  "cli": {
+    "analytics": false
+  }
 }

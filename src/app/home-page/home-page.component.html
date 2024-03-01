@@ -82,6 +82,12 @@
             (change)="this.handleAudioOnlyToggle()"
             >Audio Only</mat-slide-toggle
           >
+          <mat-slide-toggle
+            style="align-self: center"
+            checked="{{ this.highestQuality }}"
+            (change)="this.handleHighestQualityToggle()"
+            >Highest Video Quality</mat-slide-toggle
+          >
           <button
             mat-raised-button
             color="accent"

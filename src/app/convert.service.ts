@@ -88,16 +88,20 @@ export class ConvertService {
     });
   }
 
-  downloadSingle(url: string, audioOnly: boolean, passcode: string) {
+  downloadSingle(
+    url: string,
+    audioOnly: boolean,
+    passcode: string,
+    highestQuality: boolean
+  ) {
     if (this.serverError) {
       console.log('Server Error =/');
       return;
     }
 
-    let userUrl: string = url;
     let query: string = this.encodeQuery(
-      ['url', 'audioOnly', 'pass'],
-      [url, audioOnly, passcode]
+      ['url', 'audioOnly', 'pass', 'highestQuality'],
+      [url, audioOnly, passcode, highestQuality]
     );
     let downUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.SINGLE_DOWNLOAD}?${query}`;
 
@@ -126,7 +130,8 @@ export class ConvertService {
     limitVideos: number,
     audioOnly: boolean,
     passcode: string,
-    updateUiProgressBar: Function
+    updateUiProgressBar: Function,
+    highestQuality: boolean
   ) {
     if (this.serverError) {
       console.log('Server Error =/');
@@ -134,8 +139,8 @@ export class ConvertService {
     }
 
     let query = this.encodeQuery(
-      ['url', 'audioOnly', 'pass', 'limitVideos'],
-      [url, audioOnly, passcode, limitVideos]
+      ['url', 'audioOnly', 'pass', 'limitVideos', 'highestQuality'],
+      [url, audioOnly, passcode, limitVideos, highestQuality]
     );
     let downUrl = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?${query}`;
 
