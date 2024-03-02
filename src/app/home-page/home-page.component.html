@@ -76,18 +76,24 @@
             Download Video
           </button>
           <!-- </form> -->
-          <mat-slide-toggle
-            style="align-self: center"
-            checked="{{ this.audioOnly }}"
-            (change)="this.handleAudioOnlyToggle()"
-            >Audio Only</mat-slide-toggle
-          >
-          <mat-slide-toggle
-            style="align-self: center"
-            checked="{{ this.highestQuality }}"
-            (change)="this.handleHighestQualityToggle()"
-            >Highest Video Quality</mat-slide-toggle
-          >
+          <div>
+            <div>
+              <mat-slide-toggle
+                style="align-self: center"
+                checked="{{ this.audioOnly }}"
+                (change)="this.handleAudioOnlyToggle()"
+                >Audio Only</mat-slide-toggle
+              >
+            </div>
+            <div>
+              <mat-slide-toggle
+                style="align-self: center"
+                checked="{{ this.highestQuality }}"
+                (change)="this.handleHighestQualityToggle()"
+                >Highest Video Quality</mat-slide-toggle
+              >
+            </div>
+          </div>
           <button
             mat-raised-button
             color="accent"
