@@ -17,7 +17,10 @@ interface IValidate_BE {
 export class ConvertService {
   private serverError = true;
 
-  constructor(private http: HttpClient, private sseService: SseService) {}
+  constructor(
+    private http: HttpClient,
+    private sseService: SseService,
+  ) {}
 
   async pingServer(): Promise<boolean> {
     let pingError = true;
@@ -38,7 +41,7 @@ export class ConvertService {
           (err) => {
             console.log('Server NOT Reached (please reach out to the Admin)');
             isError(true);
-          }
+          },
         );
     });
 
@@ -70,7 +73,7 @@ export class ConvertService {
 
     let query: string = this.encodeQuery(
       ['url', 'isSingle', 'pass'],
-      [url, isSingle, passcode]
+      [url, isSingle, passcode],
     );
     let reqUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.VALIDATE_URL}?${query}`;
 
@@ -92,7 +95,7 @@ export class ConvertService {
     url: string,
     audioOnly: boolean,
     passcode: string,
-    highestQuality: boolean
+    highestQuality: boolean,
   ) {
     if (this.serverError) {
       console.log('Server Error =/');
@@ -101,7 +104,7 @@ export class ConvertService {
 
     let query: string = this.encodeQuery(
       ['url', 'audioOnly', 'pass', 'highestQuality'],
-      [url, audioOnly, passcode, highestQuality]
+      [url, audioOnly, passcode, highestQuality],
     );
     let downUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.SINGLE_DOWNLOAD}?${query}`;
 
@@ -131,7 +134,7 @@ export class ConvertService {
     audioOnly: boolean,
     passcode: string,
     updateUiProgressBar: Function,
-    highestQuality: boolean
+    highestQuality: boolean,
   ) {
     if (this.serverError) {
       console.log('Server Error =/');
@@ -140,7 +143,7 @@ export class ConvertService {
 
     let query = this.encodeQuery(
       ['url', 'audioOnly', 'pass', 'limitVideos', 'highestQuality'],
-      [url, audioOnly, passcode, limitVideos, highestQuality]
+      [url, audioOnly, passcode, limitVideos, highestQuality],
     );
     let downUrl = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?${query}`;
 
@@ -172,7 +175,7 @@ export class ConvertService {
       },
       (err) => {
         console.log(err);
-      }
+      },
     );
   }
 
@@ -184,37 +187,59 @@ export class ConvertService {
 
     let query: string = this.encodeQuery(
       ['url', 'audioOnly', 'pass'],
-      [url, audioOnly, passcode]
+      [url, audioOnly, passcode],
     );
     let downUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?${query}`;
 
     window.location.href = downUrl;
   }
 
-  async sendImage(file: File): Promise<void> {
+  // async sendImage(file: File): Promise<void> {
+  //   const formData = new FormData();
+  //   formData.append('image', file, file.name);
+
+  //   // let url = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PIC_TO_CALENDAR}`;
+  //   let url = `${_SERVER.CALENDAR_DOMAIN}/${_SERVER.REQUESTS.PIC_TO_CALENDAR}`;
+
+  //   const response = await this.http
+  //     .post(url, formData, { responseType: 'text' })
+  //     .subscribe(
+  //       (response) => {
+  //         console.log('-- Image uploaded successfully: ', response);
+
+  //         // Create a blob object from the resposne text
+  //         const blob = new Blob([response], { type: 'text/calendar' });
+
+  //         // Create a link element to download the file
+  //         const link = window.URL.createObjectURL(blob);
+
+  //         // Open the download link
+  //         window.open(link);
+  //       },
+  //       (error) => {
+  //         console.error('-- Error uploading image: ', error);
+  //       }
+  //     );
+  // }
+
+  sendImage(file: File): void {
     const formData = new FormData();
     formData.append('image', file, file.name);
 
-    let url = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PIC_TO_CALENDAR}`;
+    const url = `${_SERVER.CALENDAR_DOMAIN}/${_SERVER.REQUESTS.PIC_TO_CALENDAR}`;
 
-    const response = await this.http
-      .post(url, formData, { responseType: 'text' })
-      .subscribe(
-        (response) => {
-          console.log('-- Image uploaded successfully: ', response);
+    this.http.post(url, formData, { responseType: 'text' }).subscribe(
+      (response) => {
+        console.log('-- Image uploaded successfully: ', response);
 
-          // Create a blob object from the resposne text
-          const blob = new Blob([response], { type: 'text/calendar' });
+        const blob = new Blob([response], { type: 'text/calendar' });
+        const link = window.URL.createObjectURL(blob);
 
-          // Create a link element to download the file
-          const link = window.URL.createObjectURL(blob);
-
-          // Open the download link
-          window.open(link);
-        },
-        (error) => {
-          console.error('-- Error uploading image: ', error);
-        }
-      );
+        window.open(link);
+      },
+      (error) => {
+        console.error('-- Error uploading image: ', error);
+      },
+    );
   }
 }
