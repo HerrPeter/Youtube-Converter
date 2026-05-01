@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { SseService } from './sse.service';
 
 import { _SERVER } from '../const';
 
@@ -16,7 +17,10 @@ interface IValidate_BE {
 export class ConvertService {
   private serverError = true;
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private sseService: SseService,
+  ) {}
 
   async pingServer(): Promise<boolean> {
     let pingError = true;
@@ -31,14 +35,13 @@ export class ConvertService {
         .subscribe(
           (res) => {
             if (res.status === 200) {
-              // console.log('Server Reached');
               isError(false);
             }
           },
           (err) => {
             console.log('Server NOT Reached (please reach out to the Admin)');
             isError(true);
-          }
+          },
         );
     });
 
@@ -70,7 +73,7 @@ export class ConvertService {
 
     let query: string = this.encodeQuery(
       ['url', 'isSingle', 'pass'],
-      [url, isSingle, passcode]
+      [url, isSingle, passcode],
     );
     let reqUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.VALIDATE_URL}?${query}`;
 
@@ -88,16 +91,20 @@ export class ConvertService {
     });
   }
 
-  downloadSingle(url: string, audioOnly: boolean, passcode: string) {
+  downloadSingle(
+    url: string,
+    audioOnly: boolean,
+    passcode: string,
+    highestQuality: boolean,
+  ) {
     if (this.serverError) {
       console.log('Server Error =/');
       return;
     }
 
-    let userUrl: string = url;
     let query: string = this.encodeQuery(
-      ['url', 'audioOnly', 'pass'],
-      [url, audioOnly, passcode]
+      ['url', 'audioOnly', 'pass', 'highestQuality'],
+      [url, audioOnly, passcode, highestQuality],
     );
     let downUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.SINGLE_DOWNLOAD}?${query}`;
 
@@ -115,7 +122,64 @@ export class ConvertService {
     // return downUrl;
   }
 
-  downloadPlaylist(url: string, audioOnly: boolean, passcode: string) {
+  /**
+   * Initiate download of youtube playlist from a url.
+   * @param url
+   * @param audioOnly
+   * @param passcode
+   */
+  downloadPlaylist(
+    url: string,
+    limitVideos: number,
+    audioOnly: boolean,
+    passcode: string,
+    updateUiProgressBar: Function,
+    highestQuality: boolean,
+  ) {
+    if (this.serverError) {
+      console.log('Server Error =/');
+      return;
+    }
+
+    let query = this.encodeQuery(
+      ['url', 'audioOnly', 'pass', 'limitVideos', 'highestQuality'],
+      [url, audioOnly, passcode, limitVideos, highestQuality],
+    );
+    let downUrl = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?${query}`;
+
+    this.sseService.getServerSentEvent(downUrl).subscribe(
+      (event) => {
+        let data = String(event.data);
+
+        // Check if data is zip file name.
+        if (data.includes('.zip')) {
+          // Request zip file from server.
+          // window.location.href = downUrl;
+          updateUiProgressBar(0, true);
+
+          // Make another get request for the playlist zip file.
+          let playlistFile = data;
+          let query = this.encodeQuery(['file'], [playlistFile]);
+          let downUrl = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_FILE}?${query}`;
+          window.location.href = downUrl;
+          // window.open(downUrl);
+          // this.http.get(downUrl)
+          return;
+        }
+
+        // Check if data is a number.
+        if (!Number.isNaN(data)) {
+          // Update progress bar.
+          updateUiProgressBar(Number(data));
+        }
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
+  }
+
+  _downloadPlaylist(url: string, audioOnly: boolean, passcode: string) {
     if (this.serverError) {
       console.log('Server Error =/');
       return;
@@ -123,10 +187,59 @@ export class ConvertService {
 
     let query: string = this.encodeQuery(
       ['url', 'audioOnly', 'pass'],
-      [url, audioOnly, passcode]
+      [url, audioOnly, passcode],
     );
     let downUrl: string = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PLAYLIST_DOWNLOAD}?${query}`;
 
     window.location.href = downUrl;
+  }
+
+  // async sendImage(file: File): Promise<void> {
+  //   const formData = new FormData();
+  //   formData.append('image', file, file.name);
+
+  //   // let url = `${_SERVER.SSL_DOMAIN}/${_SERVER.REQUESTS.PIC_TO_CALENDAR}`;
+  //   let url = `${_SERVER.CALENDAR_DOMAIN}/${_SERVER.REQUESTS.PIC_TO_CALENDAR}`;
+
+  //   const response = await this.http
+  //     .post(url, formData, { responseType: 'text' })
+  //     .subscribe(
+  //       (response) => {
+  //         console.log('-- Image uploaded successfully: ', response);
+
+  //         // Create a blob object from the resposne text
+  //         const blob = new Blob([response], { type: 'text/calendar' });
+
+  //         // Create a link element to download the file
+  //         const link = window.URL.createObjectURL(blob);
+
+  //         // Open the download link
+  //         window.open(link);
+  //       },
+  //       (error) => {
+  //         console.error('-- Error uploading image: ', error);
+  //       }
+  //     );
+  // }
+
+  sendImage(file: File): void {
+    const formData = new FormData();
+    formData.append('image', file, file.name);
+
+    const url = `${_SERVER.CALENDAR_DOMAIN}/${_SERVER.REQUESTS.PIC_TO_CALENDAR}`;
+
+    this.http.post(url, formData, { responseType: 'text' }).subscribe(
+      (response) => {
+        console.log('-- Image uploaded successfully: ', response);
+
+        const blob = new Blob([response], { type: 'text/calendar' });
+        const link = window.URL.createObjectURL(blob);
+
+        window.open(link);
+      },
+      (error) => {
+        console.error('-- Error uploading image: ', error);
+      },
+    );
   }
 }

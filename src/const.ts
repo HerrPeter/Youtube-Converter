@@ -1,9 +1,12 @@
 export const _SERVER = {
-  SSL_DOMAIN: 'https://0f29-137-151-175-112.ngrok-free.app', //'https://9c44fab7ed3c.ngrok.io', // Need to update when new domain is created from ngrok backend.
-  DOMAIN: 'https://0f29-137-151-175-112.ngrok-free.app', //'http://9c44fab7ed3c.ngrok.io',
+  DOMAIN: 'https://monkfish-witty-unlikely.ngrok-free.app', //'https://ytdlp-api-216017006544.us-west1.run.app', //'https://0f29-137-151-175-112.ngrok-free.app', //(use when bandwidth issue fixed), //'https://server-yt-down.onrender.com',
+  SSL_DOMAIN: 'https://monkfish-witty-unlikely.ngrok-free.app', //'https://ytdlp-api-216017006544.us-west1.run.app', //'https://0f29-137-151-175-112.ngrok-free.app', //'https://server-yt-down.onrender.com', //'https://server-ytdl.herokuapp.com', // Need to update when new domain is created from ngrok backend.
+  CALENDAR_DOMAIN: 'https://ytdlp-api-c74offy3ga-uw.a.run.app',
   REQUESTS: {
+    PIC_TO_CALENDAR: 'pic-to-calendar',
     SINGLE_DOWNLOAD: 'single',
     PLAYLIST_DOWNLOAD: 'playlist',
+    PLAYLIST_FILE: 'playlist/file',
     VALIDATE_URL: 'validate',
     TEST: 'test',
   },
