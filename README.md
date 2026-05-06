@@ -1,30 +1,53 @@
-# YoutubeConverter
+# 🎥 YouTube Downloader & OCR Calendar Generator (Frontend)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.1.0.
 
-## Development server
+## 📌 Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This project is the frontend web application built using Angular that connects to a backend server to:
 
-## Code scaffolding
+- Download YouTube videos and playlists
+- Select audio-only or full video downloads
+- Upload schedule images for OCR processing
+- Generate downloadable calendar (.ics) files
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🚀 Features
 
-## Build
+- Video and playlist downloads
+- Audio-only or full video options
+- OCR calendar generation
+- Passcode validation
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## 🛠 Tech Stack
 
-## Running unit tests
+- Angular
+- TypeScript
+- Angular HttpClient
+- Vercel (used for Continuous App Integration/Deployment)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## 📂 Project Structure
 
-## Running end-to-end tests
+frontend/
+├── src/
+├── assets/
+├── environments/
+├── angular.json
+└── yarn.lock
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## ⚙️ Installation
 
-## Further help
+npm install
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## ▶️ Run
+
+ng serve
+
+App runs at http://localhost:4200
+
+## 🔗 Backend
+
+Make sure backend is running at: https://monkfish-witty-unlikely.ngrok-free.app
+Make sure backend calendar cloud server is running at: https://ytdlp-api-c74offy3ga-uw.a.run.app
 
 ## Dev Notes
 
